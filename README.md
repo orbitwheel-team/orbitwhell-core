@@ -1,2 +1,2 @@
-# orbitwhell-util
-工具类
+# orbitwhell-core
+核心开发包

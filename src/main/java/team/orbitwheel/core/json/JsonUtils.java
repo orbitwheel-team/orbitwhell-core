@@ -1,7 +1,10 @@
 package team.orbitwheel.core.json;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.util.List;
 
 /**
  * Json 工具类
@@ -32,6 +35,17 @@ public final class JsonUtils {
         ObjectMapper standardObjectMapper = JsonSpecification.getStandardObjectMapper();
         try {
             return standardObjectMapper.readValue(json, clazz);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static <T> List<T> parseArray(String json, Class<T> clazz) {
+        ObjectMapper standardObjectMapper = JsonSpecification.getStandardObjectMapper();
+        try {
+            JavaType javaType = standardObjectMapper.getTypeFactory().constructParametricType(List.class, clazz);
+            return standardObjectMapper.readValue(json, javaType);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

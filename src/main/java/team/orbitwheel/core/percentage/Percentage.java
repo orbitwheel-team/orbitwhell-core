@@ -1,6 +1,8 @@
 package team.orbitwheel.core.percentage;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.commons.lang3.ObjectUtils;
+import team.orbitwheel.core.json.JsonUtils;
 
 import java.math.BigDecimal;
 
@@ -119,5 +121,29 @@ public class Percentage {
             return new Percentage(MAX_VALUE);
         }
         return new Percentage(MAX_VALUE.subtract(this.value));
+    }
+
+    public static class Test {
+
+        private String world;
+
+        @PercentageFormat(scale = 4)
+        private Percentage hello;
+
+        public Percentage getHello() {
+            return hello;
+        }
+
+        public void setHello(Percentage hello) {
+            this.hello = hello;
+        }
+    }
+
+    public static void main(String[] args) throws JsonProcessingException {
+        Test test = new Test();
+        test.setHello(new Percentage("90"));
+        String s = JsonUtils.toJsonString(test);
+        System.out.println(s);
+        JsonUtils.parse(s, Test.class);
     }
 }
