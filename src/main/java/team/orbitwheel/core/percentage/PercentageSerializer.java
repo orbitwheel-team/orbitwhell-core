@@ -36,6 +36,7 @@ public class PercentageSerializer extends JsonSerializer<Percentage> implements 
         }
     }
 
+    @Override
     public JsonSerializer<?> createContextual(SerializerProvider prov, BeanProperty property) {
         PercentageFormat annotation = property.getAnnotation(PercentageFormat.class);
         if (annotation != null) {
