@@ -19,20 +19,24 @@ import java.sql.SQLException;
 @MappedTypes({Percentage.class})
 public class PercentageTypeHandler implements TypeHandler<Percentage> {
 
+    @Override
     public void setParameter(PreparedStatement preparedStatement, int i, Percentage percentage, JdbcType jdbcType) throws SQLException {
         PercentageProcess annotation = percentage.getClass().getAnnotation(PercentageProcess.class);
         PercentageProcessor processor = annotation != null ? new PercentageProcessor(annotation.scale(), annotation.roundingModel()) : new PercentageProcessor();
         preparedStatement.setBigDecimal(i, processor.process(percentage));
     }
 
+    @Override
     public Percentage getResult(ResultSet resultSet, String s) throws SQLException {
         return new Percentage(resultSet.getBigDecimal(s));
     }
 
+    @Override
     public Percentage getResult(ResultSet resultSet, int i) throws SQLException {
         return new Percentage(resultSet.getBigDecimal(i));
     }
 
+    @Override
     public Percentage getResult(CallableStatement callableStatement, int i) throws SQLException {
         return new Percentage(callableStatement.getBigDecimal(i));
     }
