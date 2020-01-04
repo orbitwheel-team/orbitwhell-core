@@ -33,6 +33,7 @@ public final class JsonSpecification {
         //忽略 在json字符串中存在，但是在java对象中不存在对应属性的情况。防止错误
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
+        // 自定义对象[百分比]所配置的序列化和反序列化
         SimpleModule percentageModule = new SimpleModule();
         percentageModule.addSerializer(Percentage.class, PercentageSerializer.INSTANCE);
         percentageModule.addDeserializer(Percentage.class, PercentageDeserializer.INSTANCE);
