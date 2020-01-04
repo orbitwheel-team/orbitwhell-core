@@ -18,11 +18,9 @@ public final class JsonSpecification {
 
     private JsonSpecification() { /* no instance */ }
 
-    private static ObjectMapper objectMapper;
+    private static ObjectMapper objectMapper = new ObjectMapper();
 
     static {
-        ObjectMapper objectMapper = new ObjectMapper();
-        //对象的所有字段全部列入
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         //关闭日期序列化为时间戳的功能
         objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
